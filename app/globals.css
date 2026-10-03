@@ -1,0 +1,459 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 1. THE ULTIMATE RESET - No backgrounds on everything */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: transparent !important; /* Forces all elements to be transparent */
+}
+
+/* 2. THE ONLY BACKGROUND - Apply only to the HTML/Body */
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  /* Using !important to kill the Next.js default black/white background */
+  background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%) !important;
+  color: white !important;
+  margin: 0;
+  padding: 0;
+}
+
+/* 3. FIXED NAVBAR */
+.navbar {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 95%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0a0f1ac4 !important; /* Dark solid bar */
+  padding: 15px 40px;
+  border-radius: 20px;
+  z-index: 1000;
+}
+
+/* 4. CONTENT WRAPPER */
+.portfolio-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 150px; /* Moves content down so it's not under the nav */
+  width: 100%;
+}
+
+.nav-links {
+  list-style: none;
+    display: flex;
+    gap: 20px;
+    text-decoration: none;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #cbd5e0;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 10px 22px;
+    border-radius: 50px;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+    display: inline-block;
+}
+
+/* THE INTENSE GLOW EFFECT */
+.nav-links a:hover {
+    color: #ffffff !important;
+    /* This creates a sharp text glow */
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8); 
+    background-color: rgba(255, 255, 255, 0.15); /* Brighter pill */
+    /* Multi-layered shadow for a 'neon' spread */
+    box-shadow: 
+        0 0 15px rgba(255, 255, 255, 0.2),
+        0 0 30px rgba(59, 130, 246, 0.4), /* Subtle blue outer glow */
+        inset 0 0 10px rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+/* ACTIVE STATE - Keep it solid but glowing */
+.active-link {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    color: white !important;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.circle {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  border: 5px solid white;
+  overflow: hidden;
+  margin-bottom: 30px;
+  background: white !important; /* Only place we want a solid white back */
+}
+
+.circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* The Name Title */
+.name {
+  font-family: 'Playfair Display', serif; /* Use a serif font for elegance */
+  font-size: 3rem; /* Large and bold */
+  font-weight: 700;
+  letter-spacing: 4px; /* Spaced out for a premium look */
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Adds depth */
+}
+
+/* The Info / Bio Paragraph */
+.info {
+  max-width: 650px; /* Prevents text from stretching too wide */
+  margin: 0 auto 40px; /* Centers and adds space below */
+  font-size: 1.1rem;
+  line-height: 1.7; /* Increased spacing for readability */
+  color: #cbd5e0; /* Soft grey-white to reduce eye strain */
+  font-weight: 400;
+}
+
+.social-media {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 2000;
+  align-items: flex-end; /* Keeps icons flush to the right edge */
+}
+
+.social-media a {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: #0a0f1a;
+  color: #f1f5f9;
+  text-decoration: none;
+  padding: 12px 15px;
+  border-radius: 30px 0 0 30px; /* Round only the left side */
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  width: 55px; /* Only icon is visible initially */
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  white-space: nowrap;
+}
+
+.social-media a i {
+  font-size: 24px;
+  min-width: 24px;
+  text-align: center;
+}
+
+.social-media a span {
+  font-size: 16px;
+  font-weight: bold;
+  margin-right: 15px;
+  opacity: 0; /* Hidden by default */
+  transition: opacity 0.3s;
+}
+
+/* THE HOVER POP-LEFT EFFECT */
+.social-media a:hover {
+  width: 200px; /* Expands to the left */
+  background-color: #1e293b;
+  color: #3b82f6; /* Glowing blue color */
+  box-shadow: -5px 0 20px rgba(59, 130, 246, 0.4);
+}
+
+.social-media a:hover span {
+  opacity: 1; /* Text fades in as it slides out */
+}
+
+.page-title {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  text-align: center;
+  color: white;
+}
+
+/* The Grid Container */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Responsive columns */
+  gap: 30px;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 50px;
+}
+
+@media (max-width: 1024px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* The Individual Project Box */
+.project-card {
+  background: rgba(255, 255, 255, 0.05); /* Glass effect */
+  backdrop-filter: blur(10px); /* Blurs the background video/gradient */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 25px;
+  transition: all 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+/* Hover State: Glowing Box */
+.project-card:hover {
+  transform: translateY(-10px); /* Lifts the box up */
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(59, 130, 246, 0.5); /* Blue border glow */
+  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3); /* Soft blue shadow */
+}
+
+.project-card h3 {
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+  color: #3b82f6; /* Matching your blue theme */
+}
+
+.tags {
+  display: flex;
+  gap: 10px;
+  margin: 15px 0;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.tags span {
+  font-size: 0.8rem;
+  background: rgba(59, 130, 246, 0.2);
+  padding: 4px 10px;
+  border-radius: 10px;
+  color: #93c5fd;
+}
+
+.demo-btn {
+  text-decoration: none;
+  color: white;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 10px 25px;
+  border-radius: 10px;
+  font-weight: bold;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  width: fit-content;
+  margin-top: auto;
+  margin-right: 10px;
+}
+
+.demo-btn:hover {
+  background: #3b82f6;
+  border-color: #3b82f6;
+  color: white;
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
+  transform: translateY(-2px);
+}
+
+.view-btn {
+  text-decoration: none;
+  color: white;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 10px 25px;
+  border-radius: 10px;
+  font-weight: bold;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  width: fit-content;
+  margin-top: auto;
+}
+
+.view-btn:hover {
+  background: #3b82f6;
+  border-color: #3b82f6;
+  color: white;
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
+  transform: translateY(-2px);
+}
+
+.resume-container {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  background: rgba(255, 255, 255, 0.03); /* Glassmorphism */
+  backdrop-filter: blur(15px); /* Frost effect */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 30px;
+  padding: 50px;
+  max-width: 1100px;
+  margin: 100px auto; /* Space for Navbar */
+}
+
+/* Container for the Header inside the Resume */
+.resume-header {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  padding-bottom: 30px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Separator line */
+  width: 100%;
+}
+
+/* THE CIRCLE LOGO (Red Area) */
+.resume-logo-circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #3b82f6;
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.4); /* Glowing effect */
+}
+
+.resume-logo-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* THE NAME & SUBTITLE (Yellow Area) */
+.resume-info h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: white;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.resume-subtitle {
+  color: #3b82f6;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-top: 5px;
+}
+
+/* Adjust the existing split to accommodate the header */
+.resume-content-split {
+  display: flex;
+  gap: 40px;
+  width: 100%;
+}
+
+.resume-sidebar { flex: 1; }
+.resume-main { flex: 2; }
+
+.resume-section h2 {
+  color: #3b82f6; /* Theme Blue */
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Timeline Logic */
+.timeline {
+  position: relative;
+  border-left: 2px solid rgba(59, 130, 246, 0.3);
+  padding-left: 30px;
+}
+
+.timeline-item { position: relative; margin-bottom: 40px; }
+
+.timeline-dot {
+  position: absolute;
+  left: -37px;
+  top: 5px;
+  width: 14px;
+  height: 14px;
+  background: #3b82f6;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #3b82f6; /* Glowing Node */
+}
+
+/* Floating Action Button (FAB) */
+.download-fab {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  background: #3b82f6;
+  color: white;
+  padding: 15px 25px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.download-fab:hover {
+  transform: scale(1.1);
+  background: #2563eb;
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
+}
+
+/* Base style for all skill tags */
+.skill-tag {
+  display: inline-block;
+  padding: 6px 14px;
+  margin: 5px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05); /* Very transparent background */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cbd5e0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: default;
+}
+
+/* --- COLORS & EFFECTS --- */
+
+/* Frontend: Blue Glow */
+.frontend:hover {
+  color: #60a5fa;
+  border-color: #60a5fa;
+  background: rgba(96, 165, 250, 0.1);
+  box-shadow: 0 0 15px rgba(96, 165, 250, 0.4); /* Neon blue glow */
+  transform: translateY(-3px);
+}
+
+/* Backend: Green/Emerald Glow */
+.backend:hover {
+  color: #34d399;
+  border-color: #34d399;
+  background: rgba(52, 211, 153, 0.1);
+  box-shadow: 0 0 15px rgba(52, 211, 153, 0.4); /* Neon green glow */
+  transform: translateY(-3px);
+}
+
+/* Tools: Purple/Violet Glow */
+.tools:hover {
+  color: #a78bfa;
+  border-color: #a78bfa;
+  background: rgba(167, 139, 250, 0.1);
+  box-shadow: 0 0 15px rgba(167, 139, 250, 0.4); /* Neon purple glow */
+  transform: translateY(-3px);
+}
